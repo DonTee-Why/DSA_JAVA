@@ -1,14 +1,12 @@
 package HashMaps;
 
 import java.util.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 
-class HashMap{
-  private ArrayList<KeyValuePair>[] data;
+public class HashMap{
+  public ArrayList<KeyValuePair>[] data;
   int currentLength;
 
-  HashMap(int size){
+  public HashMap(int size){
     data = new ArrayList[size];
     currentLength = 0;
   }
@@ -23,7 +21,7 @@ class HashMap{
 
   public void set(String key, String value){
     int address = hash(key);
-
+    System.out.println("Hash value for " + key + ": " + address);
     if (data[address] == null){
       ArrayList<KeyValuePair> arrayAddress = new ArrayList<>();
       data[address] = arrayAddress;
@@ -47,10 +45,19 @@ class HashMap{
   }
 
   public String[] keys(){
-    ArrayList<KeyValuePair>[] pair = data;
-    String[] keys = new String[currentLength];
-    
-    return keys;
+    ArrayList<KeyValuePair>[] bucket = data;
+    ArrayList<String> keys = new ArrayList<String>();
+    String[] keysArray = new String[keys.size()];
+    int count = 0;
+    for(ArrayList<KeyValuePair> pairs : bucket){
+      if(pairs != null){
+          for(KeyValuePair pair : pairs){
+            keys.add(pair.getKey());
+            count++;
+          }
+      }
+    }
+    return keys.toArray(keysArray);
   }
   
 }
